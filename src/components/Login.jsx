@@ -7,6 +7,7 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = useState("mridul@gmail.com");
   const [password, setPassword] = useState("Mridul@123");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogin = async () => {
@@ -22,6 +23,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       return navigate("/");
     } catch (err) {
+      setError(err?.response?.data || "Invalid email or password");
       console.log(err);
     }
   };
@@ -49,6 +51,7 @@ const Login = () => {
         <button className="btn btn-neutral mt-4" onClick={handleLogin}>
           Login
         </button>
+        <p className="text-red-600">{error}</p>
       </div>
     </div>
   );
